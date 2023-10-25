@@ -1,5 +1,11 @@
 // Includes packages needed for this application
+const {
+  getAllEmployees
+} = require('./controllers/employeeController');
+
 const inquirer = require('inquirer');
+
+// Array of actions
 const actions = 
  ['View All Employees', 
   'Add Employee',
@@ -25,8 +31,7 @@ const questions = [
 // Initialize app
 function init() {
     inquirer.prompt(questions)
-    .then((answers) => console.log(''))
-    .then(() => console.log(''))
+    .then((answers) => console.log(getAllEmployees()))
     .catch((err) => console.error(err));
 }
 
