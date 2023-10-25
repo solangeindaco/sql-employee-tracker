@@ -1,6 +1,7 @@
 // Includes packages needed for this application
 const inquirer = require('inquirer');
-const actions = ['View All Employees', 
+const actions = 
+ ['View All Employees', 
   'Add Employee',
   'Update Employee Role',
   'View All Roles', 
@@ -13,7 +14,7 @@ const actions = ['View All Employees',
 // Creates an array of questions for user input
 const questions = [
     {
-      type: 'input',
+      type: 'list',
       name: 'text',
       message: 'What would you like to do?',
       choices: actions
