@@ -1,6 +1,8 @@
 // Includes packages needed for this application
 const {
-  getAllEmployees
+  getAllEmployees,
+  getAllRoles,
+  getAllDepartments
 } = require('./controllers/employeeController');
 
 const inquirer = require('inquirer');
@@ -21,17 +23,53 @@ const actions =
 const questions = [
     {
       type: 'list',
-      name: 'text',
+      name: 'action',
       message: 'What would you like to do?',
       choices: actions
     },
+    {
+      type: 'input',
+      name: 'employeeFirstName',
+      message: 'What is the employee first name?',
+      when: (answers) => answers.action === 'Add Employee'
+    },
+    {
+      type: 'input',
+      name: 'employeeLastName',
+      message: 'What the employee last name?',
+      when: (answers) => answers.action === 'Add Employee'
+    }
   ];
 
+function performAction (action){
+  switch (action) {
+    case 'View All Employees':
+      getAllEmployees();
+      break;
+    case 'Add Employee':  
+      break;
+    case 'Update Employee Role':
+      break;
+    case 'View All Roles':
+      getAllRoles();
+      break;
+    case 'Add Role':
+      break;
+    case 'View All Departments':
+      getAllDepartments();
+      break;
+    case 'Add Department':
+      break;
+    case 'Quit':
+      break;
+  }
+  }
+}
 
 // Initialize app
 function init() {
     inquirer.prompt(questions)
-    .then((answers) => console.log(getAllEmployees()))
+    .then((answers) => getAllEmployees())
     .catch((err) => console.error(err));
 }
 
