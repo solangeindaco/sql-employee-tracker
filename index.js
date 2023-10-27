@@ -11,6 +11,7 @@ const {
   getAllDepartments,
   getRoleChoices,
   getEmployeeChoices,
+  getDepartmentChoices,
   updateEmployeeRole
 } = require('./controllers/employeeController');
 
@@ -49,12 +50,14 @@ function performAction (answers){
       addDepartment(answers.departmentName);
       break;
     case 'Quit':
+      process.exit();
       return;
     }
     askQuestions();
 }
 
-function initQuestions(roleChoices, employeeChoices){
+function initQuestions(roleChoices, employeeChoices, departmentChoices){
+  
   // Creates an array of questions for user input
   const questions = [
     {
@@ -108,10 +111,11 @@ function initQuestions(roleChoices, employeeChoices){
       when: (answers) => answers.action === 'Add Role'
     },
     {
-      type: 'input',
-      name: 'roleDeptId',
+      type: 'list',
+      name: 'departmentId',
       message: 'What is role\'s department?',
-      when: (answers) => answers.action === 'Add Role'
+      when: (answers) => answers.action === 'Add Role',
+      choices: departmentChoices
     },
     {
       type: 'list',
@@ -132,9 +136,11 @@ function initQuestions(roleChoices, employeeChoices){
 }
 
 async function askQuestions(){
+  const departmentChoices = await getDepartmentChoices();
   const employeeChoices = await getEmployeeChoices();
   const roleChoices = await getRoleChoices();
-  const questions = initQuestions(roleChoices, employeeChoices);
+  
+  const questions = initQuestions(roleChoices, employeeChoices, departmentChoices);
 
   inquirer.prompt(questions)
   .then((answers) => performAction(answers))
@@ -155,7 +161,7 @@ function renderBanner(){
 function init() {
   renderBanner();
   askQuestions();
-  process.exit(0);
+ 
 }
 
 // Initialize app
