@@ -50,6 +50,7 @@ const getAllEmployees = async () => {
   }
 };
 
+
 const getAllRoles = async () => {
   try {
     const sql = 'SELECT * FROM role;';
@@ -60,7 +61,8 @@ const getAllRoles = async () => {
   }
 };
 
-const getRoleChoices = async (req, res) => {
+
+const getRoleChoices = async () => {
   try {
     const sql = 'SELECT * FROM role;';
     const [rows] = await connection.query(sql);
@@ -68,11 +70,13 @@ const getRoleChoices = async (req, res) => {
       name: title,
       value: id
     }));
-    console.log(roles);
+    return roles;
   } catch (error) {
     console.log(error);
   }
 }
+
+
 
 const getManagerChoices = async (req, res) => {
   try {
@@ -83,7 +87,7 @@ const getManagerChoices = async (req, res) => {
       value: id
     }));
     managers.push({ name: 'None', value: null });
-    console.log(managers);
+    return managers;
   } catch (error) {
     console.log(error);
   }
