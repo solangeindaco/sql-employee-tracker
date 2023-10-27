@@ -41,7 +41,7 @@ function performAction (answers){
       getAllRoles();
       break;
     case 'Add Role':
-      addRole(answers.roleName, answers.roleSalary, answers.roleDeptId);
+      addRole(answers.roleName, answers.roleSalary, answers.departmentId);
       break;
     case 'View All Departments':
       getAllDepartments();

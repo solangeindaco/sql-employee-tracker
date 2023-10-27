@@ -59,7 +59,8 @@ const getAllEmployees = async () => {
 
 const getAllRoles = async () => {
   try {
-    const sql = 'SELECT * FROM role;';
+    const sql = `SELECT role.id, title, department.name as department, salary  FROM role
+                 LEFT JOIN department ON role.department_id = department.id ;`;
     const [rows] = await connection.query(sql);
     console.table(rows);
   } catch (error) {
