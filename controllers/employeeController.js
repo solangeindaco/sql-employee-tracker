@@ -32,8 +32,8 @@ const addRole = async (roleName, roleSalary, departmentId) => {
 
 const updateEmployeeRole = async (employeeId, roleId) => {
   try {
-    const sql = `UPDATE employee WHERE id = ? SET role_id = ?;`;
-    const [rows] = await connection.query(sql, [employeeId, roleId]);
+    const sql = `UPDATE employee SET role_id = ? WHERE id = ? ;`;
+    const [rows] = await connection.query(sql, [roleId, employeeId]);
     console.log(rows);
   } catch (error) {
     console.log(error);
@@ -78,7 +78,7 @@ const getRoleChoices = async () => {
 
 
 
-const getManagerChoices = async () => {
+const getEmployeeChoices = async () => {
   try {
     const sql = 'SELECT * FROM employee;';
     const [rows] = await connection.query(sql);
@@ -112,6 +112,6 @@ module.exports = {
   getAllRoles,
   getAllDepartments,
   getRoleChoices,
-  getManagerChoices,
+  getEmployeeChoices,
   updateEmployeeRole
 }

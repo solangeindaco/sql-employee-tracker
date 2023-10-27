@@ -10,7 +10,7 @@ const {
   getAllRoles,
   getAllDepartments,
   getRoleChoices,
-  getManagerChoices,
+  getEmployeeChoices,
   updateEmployeeRole
 } = require('./controllers/employeeController');
 
@@ -57,7 +57,7 @@ function performAction (answers){
     askQuestions();
 }
 
-function initQuestions(roleChoices, managerChoices){
+function initQuestions(roleChoices, employeeChoices){
   // Creates an array of questions for user input
   const questions = [
     {
@@ -90,7 +90,7 @@ function initQuestions(roleChoices, managerChoices){
       name: 'employeeManagerId',
       message: 'What is the employee\'s manager?',
       when: (answers) => answers.action === 'Add Employee',
-      choices: managerChoices
+      choices: employeeChoices
     },
     {
       type: 'input',
@@ -115,15 +115,29 @@ function initQuestions(roleChoices, managerChoices){
       name: 'roleDeptId',
       message: 'What is role\'s department?',
       when: (answers) => answers.action === 'Add Role'
+    },
+    {
+      type: 'list',
+      name: 'employeeId',
+      message: 'Which employee\'s role do you want to update?',
+      when: (answers) => answers.action === 'Update Employee Role',
+      choices: employeeChoices
+    },
+    {
+      type: 'list',
+      name: 'roleId',
+      message: 'Which role do you want to assign to the selected employee?',
+      when: (answers) => answers.action === 'Update Employee Role',
+      choices: roleChoices
     }
   ];
   return questions;
 }
 
 async function askQuestions(){
+  const employeeChoices = await getEmployeeChoices();
   const roleChoices = await getRoleChoices();
-  const managerChoices = await getManagerChoices();
-  const questions = initQuestions(roleChoices, managerChoices);
+  const questions = initQuestions(roleChoices, employeeChoices);
 
   inquirer.prompt(questions)
   .then((answers) => performAction(answers))
