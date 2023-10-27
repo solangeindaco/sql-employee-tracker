@@ -78,7 +78,7 @@ const getRoleChoices = async () => {
 
 
 
-const getManagerChoices = async (req, res) => {
+const getManagerChoices = async () => {
   try {
     const sql = 'SELECT * FROM employee;';
     const [rows] = await connection.query(sql);

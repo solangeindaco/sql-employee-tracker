@@ -1,5 +1,6 @@
 // Includes packages needed for this application
 const inquirer = require('inquirer');
+const figlet = require('figlet');
 
 const {
   addEmployee,
@@ -128,8 +129,20 @@ async function askQuestions(){
   .then((answers) => performAction(answers))
   .catch((err) => console.error(err));
 }
+
+function renderBanner(){
+  figlet("\n\nEmployee \n\n Manager\n\n", function (err, data) {
+      if (err) {
+      console.log("Something went wrong...");
+      console.dir(err);
+      return;
+      }
+      console.log(data);
+  });
+}
 // Initialize app
 function init() {
+  renderBanner();
   askQuestions();
 }
 
