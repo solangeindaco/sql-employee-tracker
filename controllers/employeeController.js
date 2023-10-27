@@ -4,7 +4,7 @@ const addDepartment = async (departmentName) => {
   try {
     const sql = `INSERT INTO department (name) VALUES (?);`;
     const [rows] = await connection.query(sql, [departmentName]);
-    console.log(rows);
+    console.log(`Added a new department ${departmentName} to the database`);
   } catch (error) {
     console.log(error);
   }
@@ -14,7 +14,7 @@ const addEmployee = async (firsName, lastName, roleId, managerId) => {
   try {
     const sql = `INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?,?,?,?);`;
     const [rows] = await connection.query(sql, [firsName, lastName, roleId, managerId]);
-    console.log(rows);
+    console.log(`Added a new employee ${firsName} ${lastName} to the database`);
   } catch (error) {
     console.log(error);
   }
@@ -24,7 +24,7 @@ const addRole = async (roleName, roleSalary, departmentId) => {
   try {
     const sql = `INSERT INTO role (title, salary, department_id) VALUES (?,?,?);`;
     const [rows] = await connection.query(sql, [roleName, roleSalary, departmentId]);
-    console.log(rows);
+    console.log(`Added a new role ${roleName} to the database`);
   } catch (error) {
     console.log(error);
   }
@@ -34,7 +34,7 @@ const updateEmployeeRole = async (employeeId, roleId) => {
   try {
     const sql = `UPDATE employee SET role_id = ? WHERE id = ? ;`;
     const [rows] = await connection.query(sql, [roleId, employeeId]);
-    console.log(rows);
+    console.log(`Updated employee/'s role`);
   } catch (error) {
     console.log(error);
   }

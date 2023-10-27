@@ -50,9 +50,6 @@ function performAction (answers){
       break;
     case 'Quit':
       return;
-      break;
-    default:
-      break;
     }
     askQuestions();
 }
@@ -88,7 +85,7 @@ function initQuestions(roleChoices, employeeChoices){
     {
       type: 'list',
       name: 'employeeManagerId',
-      message: 'What is the employee\'s manager?',
+      message: 'Who is the employee\'s manager?',
       when: (answers) => answers.action === 'Add Employee',
       choices: employeeChoices
     },
@@ -158,6 +155,7 @@ function renderBanner(){
 function init() {
   renderBanner();
   askQuestions();
+  process.exit(0);
 }
 
 // Initialize app
