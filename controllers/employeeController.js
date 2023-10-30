@@ -196,6 +196,35 @@ const getBudgetByDepartment = async (departmentId) => {
   }
 }
 
+const deleteRole = async (roleId) => {
+  try{
+    const sql = `DELETE FROM role WHERE id = ?;`;
+    await connection.query(sql, [roleId]);
+    console.log(`Deleted role with id ${roleId}`);
+  }catch (error) {
+    console.log(error);
+  }
+}
+
+const deleteDepartment = async (departmentId) => {
+  try{
+    const sql = `DELETE FROM department WHERE id = ?;`;
+    await connection.query(sql, [departmentId]);
+    console.log(`Deleted department with id ${departmentId}`);
+  }catch (error) {
+    console.log(error);
+  }
+}
+
+const deleteEmployee = async (employeeId) => {  
+  try{
+    const sql = `DELETE FROM employee WHERE id = ?;`;
+    await connection.query(sql, [employeeId]);
+    console.log(`Deleted employee with id ${employeeId}`);  
+  }catch (error) {
+    console.log(error);
+  }
+}
 
 module.exports = {
   addEmployee,
@@ -211,5 +240,8 @@ module.exports = {
   getDepartmentChoices,
   getBudgetByDepartment,
   updateEmployeeRole,
-  updateEmployeeManager
+  updateEmployeeManager,
+  deleteRole,
+  deleteDepartment,
+  deleteEmployee
 }

@@ -16,7 +16,10 @@ const {
   getDepartmentChoices,
   getBudgetByDepartment,
   updateEmployeeRole,
-  updateEmployeeManager
+  updateEmployeeManager,
+  deleteRole,
+  deleteDepartment,
+  deleteEmployee
 } = require('./controllers/employeeController');
 
 // Array of actions
@@ -32,6 +35,9 @@ const actions =
   'View All Departments', 
   'Add Department', 
   'View the total utilized budget of a department',
+  'Delete Role',
+  'Delete Department',
+  'Delete Employee',
   'Quit'];
 
 function performAction (answers){
@@ -68,7 +74,16 @@ function performAction (answers){
       break;
     case 'View the total utilized budget of a department':
       getBudgetByDepartment(answers.departmentId);
-      break
+      break;
+    case 'Delete Role':
+      deleteRole(answers.roleId);
+      break;  
+    case 'Delete Department':
+      deleteDepartment(answers.departmentId);
+      break;
+    case 'Delete Employee':
+      deleteEmployee(answers.employeeId);
+      break;
     case 'Quit':
       process.exit();
       return;
@@ -185,7 +200,28 @@ function initQuestions(roleChoices, employeeChoices, departmentChoices){
       message: 'Which role do you want to assign to the selected employee?',
       when: (answers) => answers.action === 'Update Employee Role',
       choices: roleChoices
-    }
+    },
+    {
+      type: 'list',
+      name: 'roleId',
+      message: 'Which role do you want to delete?',
+      when: (answers) => answers.action === 'Delete Role',
+      choices: roleChoices
+    },
+    {
+      type: 'list',
+      name: 'departmentId',
+      message: 'Which department do you want to assign to delete?',
+      when: (answers) => answers.action === 'Delete Department',
+      choices: departmentChoices
+    },
+    {
+      type: 'list',
+      name: 'employeeId',
+      message: 'Which employee do you want to delete?',
+      when: (answers) => answers.action === 'Delete Employee',
+      choices: employeeChoices
+    },
   ];
   return questions;
 }
