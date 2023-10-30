@@ -161,7 +161,7 @@ const getAllDepartments = async () => {
   try {
     const sql = 'SELECT * FROM department;';
     const [rows] = await connection.query(sql);
-    printTable(rows);
+    printTable(rows, ['id', 'name']);
   } catch (error) {
     console.log(error);
   }

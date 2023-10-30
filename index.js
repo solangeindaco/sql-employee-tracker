@@ -239,7 +239,7 @@ async function askQuestions(){
 }
 
 function renderBanner(){
-  figlet("\n\nEmployee \n\n Manager\n\n", function (err, data) {
+  figlet(`\n\nEmployee \n\n\ Manager\n\n`, function (err, data) {
       if (err) {
       console.log("Something went wrong...");
       console.dir(err);
