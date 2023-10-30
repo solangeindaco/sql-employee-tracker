@@ -114,9 +114,6 @@ const getAllEmployeesByDepartment = async (departmentId) => {
   }
 };
 
-
-
-
 const getAllRoles = async () => {
   try {
     const sql = `SELECT role.id, title, department.name as department, salary  FROM role
@@ -184,6 +181,21 @@ const getDepartmentChoices = async () => {
   }
 };
 
+const getBudgetByDepartment = async (departmentId) => {
+  try {
+    const sql = `SELECT department.name as department, SUM(salary) as budget
+                  FROM employee 
+                  LEFT JOIN role ON employee.role_id = role.id 
+                  LEFT JOIN department ON role.department_id = department.id 
+                  WHERE department.id = ?
+                  GROUP BY department.id;`;
+    const [rows] = await connection.query(sql, [departmentId]);
+    printTable(rows, ['department', 'budget']);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 
 module.exports = {
   addEmployee,
@@ -197,6 +209,7 @@ module.exports = {
   getRoleChoices,
   getEmployeeChoices,
   getDepartmentChoices,
+  getBudgetByDepartment,
   updateEmployeeRole,
   updateEmployeeManager
 }

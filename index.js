@@ -14,6 +14,7 @@ const {
   getRoleChoices,
   getEmployeeChoices,
   getDepartmentChoices,
+  getBudgetByDepartment,
   updateEmployeeRole,
   updateEmployeeManager
 } = require('./controllers/employeeController');
@@ -30,6 +31,7 @@ const actions =
   'Add Role', 
   'View All Departments', 
   'Add Department', 
+  'View the total utilized budget of a department',
   'Quit'];
 
 function performAction (answers){
@@ -64,6 +66,9 @@ function performAction (answers){
     case 'Add Department':
       addDepartment(answers.departmentName);
       break;
+    case 'View the total utilized budget of a department':
+      getBudgetByDepartment(answers.departmentId);
+      break
     case 'Quit':
       process.exit();
       return;
@@ -119,6 +124,13 @@ function initQuestions(roleChoices, employeeChoices, departmentChoices){
       name: 'departmentId',
       message: 'Which department you want to see all its employees?',
       when: (answers) => answers.action === 'View Employees by Department',
+      choices: departmentChoices
+    },
+    {
+      type: 'list',
+      name: 'departmentId',
+      message: 'Which department you want to its budget?',
+      when: (answers) => answers.action === 'View the total utilized budget of a department',
       choices: departmentChoices
     },
     {
