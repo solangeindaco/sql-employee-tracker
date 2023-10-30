@@ -72,13 +72,49 @@ const getAllEmployees = async () => {
                   FROM employee 
                   LEFT JOIN role ON employee.role_id = role.id 
                   LEFT JOIN department ON role.department_id = department.id 
-                  LEFT JOIN employee as manager ON employee.manager_id = manager.id;` ;
+                  LEFT JOIN employee as manager ON employee.manager_id = manager.id;`;
     const [rows] = await connection.query(sql);
     printTable(rows, ['id', 'first_name', 'last_name', 'title', 'department', 'salary', 'manager']);
   } catch (error) {
     console.log(error);
   }
 };
+
+const getAllEmployeesByManager = async (managerId) => {
+  try {
+    const sql = `SELECT employee.id, employee.first_name, employee.last_name, 
+                        title, department.name as department, salary , 
+                        CONCAT (manager.first_name,' ',manager.last_name) AS 'manager'
+                  FROM employee 
+                  LEFT JOIN role ON employee.role_id = role.id 
+                  LEFT JOIN department ON role.department_id = department.id 
+                  LEFT JOIN employee as manager ON employee.manager_id = manager.id
+                  WHERE employee.manager_id = ?;`;
+    const [rows] = await connection.query(sql, [managerId]);
+    printTable(rows, ['id', 'first_name', 'last_name', 'title', 'department', 'salary', 'manager']);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const getAllEmployeesByDepartment = async (departmentId) => {
+  try {
+    const sql = `SELECT employee.id, employee.first_name, employee.last_name, 
+                        title, department.name as department, salary , 
+                        CONCAT (manager.first_name,' ',manager.last_name) AS 'manager'
+                  FROM employee 
+                  LEFT JOIN role ON employee.role_id = role.id 
+                  LEFT JOIN department ON role.department_id = department.id 
+                  LEFT JOIN employee as manager ON employee.manager_id = manager.id
+                  WHERE department.id = ?;`;
+    const [rows] = await connection.query(sql, [departmentId]);
+    printTable(rows, ['id', 'first_name', 'last_name', 'title', 'department', 'salary', 'manager']);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
 
 
 const getAllRoles = async () => {
@@ -154,6 +190,8 @@ module.exports = {
   addDepartment,
   addRole,
   getAllEmployees,
+  getAllEmployeesByManager,
+  getAllEmployeesByDepartment,
   getAllRoles,
   getAllDepartments,
   getRoleChoices,

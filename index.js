@@ -7,6 +7,8 @@ const {
   addDepartment,
   addRole,
   getAllEmployees,
+  getAllEmployeesByManager,
+  getAllEmployeesByDepartment,
   getAllRoles,
   getAllDepartments,
   getRoleChoices,
@@ -19,6 +21,8 @@ const {
 // Array of actions
 const actions = 
  ['View All Employees', 
+  'View Employees by Manager',
+  'View Employees by Department',
   'Add Employee',
   'Update Employee Role',
   'Update Employee Manager',
@@ -32,6 +36,12 @@ function performAction (answers){
   switch (answers.action) {
     case 'View All Employees':
       getAllEmployees();
+      break;
+    case 'View Employees by Manager':
+      getAllEmployeesByManager(answers.managerId);
+      break;
+    case 'View Employees by Department':
+      getAllEmployeesByDepartment(answers.departmentId);
       break;
     case 'Add Employee':
       addEmployee(answers.employeeFirstName, answers.employeeLastName, answers.employeeRoleId, answers.employeeManagerId);  
@@ -96,6 +106,20 @@ function initQuestions(roleChoices, employeeChoices, departmentChoices){
       message: 'Who is the employee\'s manager?',
       when: (answers) => answers.action === 'Add Employee',
       choices: employeeChoices
+    },
+    {
+      type: 'list',
+      name: 'managerId',
+      message: 'Who is the manager you want to see all his/her employees?',
+      when: (answers) => answers.action === 'View Employees by Manager',
+      choices: employeeChoices
+    },
+    {
+      type: 'list',
+      name: 'departmentId',
+      message: 'Which department you want to see all its employees?',
+      when: (answers) => answers.action === 'View Employees by Department',
+      choices: departmentChoices
     },
     {
       type: 'list',
