@@ -12,7 +12,8 @@ const {
   getRoleChoices,
   getEmployeeChoices,
   getDepartmentChoices,
-  updateEmployeeRole
+  updateEmployeeRole,
+  updateEmployeeManager
 } = require('./controllers/employeeController');
 
 // Array of actions
@@ -20,6 +21,7 @@ const actions =
  ['View All Employees', 
   'Add Employee',
   'Update Employee Role',
+  'Update Employee Manager',
   'View All Roles', 
   'Add Role', 
   'View All Departments', 
@@ -36,6 +38,9 @@ function performAction (answers){
       break;
     case 'Update Employee Role':
       updateEmployeeRole(answers.employeeId, answers.roleId);
+      break;
+    case 'Update Employee Manager':
+      updateEmployeeManager(answers.employeeId, answers.managerId);
       break;
     case 'View All Roles':
       getAllRoles();
@@ -90,6 +95,20 @@ function initQuestions(roleChoices, employeeChoices, departmentChoices){
       name: 'employeeManagerId',
       message: 'Who is the employee\'s manager?',
       when: (answers) => answers.action === 'Add Employee',
+      choices: employeeChoices
+    },
+    {
+      type: 'list',
+      name: 'employeeId',
+      message: 'Which employee do you want to update his/her manager?',
+      when: (answers) => answers.action === 'Update Employee Manager',
+      choices: employeeChoices
+    },
+    {
+      type: 'list',
+      name: 'managerId',
+      message: 'Which manager do you want to assign to the selected employee?',
+      when: (answers) => answers.action === 'Update Employee Manager',
       choices: employeeChoices
     },
     {
