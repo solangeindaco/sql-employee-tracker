@@ -161,7 +161,6 @@ function renderBanner(){
 function init() {
   renderBanner();
   askQuestions();
- 
 }
 
 // Initialize app
