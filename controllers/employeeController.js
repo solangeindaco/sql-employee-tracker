@@ -146,12 +146,11 @@ const getEmployeeChoices = async () => {
   try {
     const sql = 'SELECT * FROM employee;';
     const [rows] = await connection.query(sql);
-    const managers = rows.map(({ id, first_name, last_name }) => ({
+    const employees = rows.map(({ id, first_name, last_name }) => ({
       name: `${first_name} ${last_name}`,
       value: id
     }));
-    managers.push({ name: 'None', value: null });
-    return managers;
+    return employees;
   } catch (error) {
     console.log(error);
   }

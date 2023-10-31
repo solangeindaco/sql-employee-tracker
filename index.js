@@ -91,7 +91,7 @@ function performAction (answers){
     askQuestions();
 }
 
-function initQuestions(roleChoices, employeeChoices, departmentChoices){
+function initQuestions(roleChoices, employeeChoices, departmentChoices, managerChoices){
   
   // Creates an array of questions for user input
   const questions = [
@@ -125,7 +125,7 @@ function initQuestions(roleChoices, employeeChoices, departmentChoices){
       name: 'managerId',
       message: 'Who is the employee\'s manager?',
       when: (answers) => answers.action === 'Add Employee',
-      choices: employeeChoices
+      choices: managerChoices
     },
     {
       type: 'list',
@@ -232,7 +232,7 @@ async function askQuestions(){
   const roleChoices = await getRoleChoices();
   const managerChoices = employeeChoices.push({name: 'None', value: null});
   
-  const questions = initQuestions(roleChoices, employeeChoices, departmentChoices);
+  const questions = initQuestions(roleChoices, employeeChoices, departmentChoices, managerChoices);
 
   inquirer.prompt(questions)
   .then((answers) => performAction(answers))
