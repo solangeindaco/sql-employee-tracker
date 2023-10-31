@@ -18,7 +18,7 @@ Repository URL: https://github.com/solangeindaco/sql-employee-tracker
 
 The following video shows the command line application's appearance and functionality:
 
-[SQL Employee Tracker video]()
+[SQL Employee Tracker video](https://drive.google.com/file/d/1mthKmXjYssSJEXkmINpoNgpr6DRmUXRe/view)
 
 
 ## Credits
