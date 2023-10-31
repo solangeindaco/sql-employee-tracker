@@ -52,7 +52,7 @@ function performAction (answers){
       getAllEmployeesByDepartment(answers.departmentId);
       break;
     case 'Add Employee':
-      addEmployee(answers.employeeFirstName, answers.employeeLastName, answers.employeeRoleId, answers.employeeManagerId);  
+      addEmployee(answers.employeeFirstName, answers.employeeLastName, answers.employeeRoleId, answers.managerId);  
       break;
     case 'Update Employee Role':
       updateEmployeeRole(answers.employeeId, answers.roleId);
@@ -122,7 +122,7 @@ function initQuestions(roleChoices, employeeChoices, departmentChoices){
     },
     {
       type: 'list',
-      name: 'employeeManagerId',
+      name: 'managerId',
       message: 'Who is the employee\'s manager?',
       when: (answers) => answers.action === 'Add Employee',
       choices: employeeChoices
@@ -160,7 +160,7 @@ function initQuestions(roleChoices, employeeChoices, departmentChoices){
       name: 'managerId',
       message: 'Which manager do you want to assign to the selected employee?',
       when: (answers) => answers.action === 'Update Employee Manager',
-      choices: employeeChoices
+      choices: managerChoices
     },
     {
       type: 'input',
@@ -230,6 +230,7 @@ async function askQuestions(){
   const departmentChoices = await getDepartmentChoices();
   const employeeChoices = await getEmployeeChoices();
   const roleChoices = await getRoleChoices();
+  const managerChoices = employeeChoices.push({name: 'None', value: null});
   
   const questions = initQuestions(roleChoices, employeeChoices, departmentChoices);
 
