@@ -239,15 +239,17 @@ async function askQuestions(){
   .catch((err) => console.error(err));
 }
 
-function renderBanner(){
-  figlet(`\n\nEmployee \n\n\ Manager\n\n`, function (err, data) {
-      if (err) {
-      console.log("Something went wrong...");
-      console.dir(err);
-      return;
-      }
-      console.log(data);
-  });
+async function renderBanner(){
+  console.log(`\n\n--------------------------------------------------\n\n`);
+  await figlet(`\n\nEmployee \n\n\ Manager\n\n`, function (err, data) {
+          if (err) {
+          console.log("Something went wrong...");
+          console.dir(err);
+          return;
+          }
+          console.log(data);
+        });
+  console.log(`\n\n--------------------------------------------------\n\n`);
 }
 // Initialize app
 function init() {
