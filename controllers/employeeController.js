@@ -156,6 +156,21 @@ const getEmployeeChoices = async () => {
   }
 }
 
+const getManagerChoices = async () => {
+  try {
+    const sql = 'SELECT * FROM employee;';
+    const [rows] = await connection.query(sql);
+    const employees = rows.map(({ id, first_name, last_name }) => ({
+      name: `${first_name} ${last_name}`,
+      value: id
+    }));
+    employees.push({ name: 'None', value: null });
+    return employees;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 const getAllDepartments = async () => {
   try {
     const sql = 'SELECT * FROM department;';
@@ -237,6 +252,7 @@ module.exports = {
   getRoleChoices,
   getEmployeeChoices,
   getDepartmentChoices,
+  getManagerChoices,
   getBudgetByDepartment,
   updateEmployeeRole,
   updateEmployeeManager,

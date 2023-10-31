@@ -14,6 +14,7 @@ const {
   getRoleChoices,
   getEmployeeChoices,
   getDepartmentChoices,
+  getManagerChoices,
   getBudgetByDepartment,
   updateEmployeeRole,
   updateEmployeeManager,
@@ -230,7 +231,7 @@ async function askQuestions(){
   const departmentChoices = await getDepartmentChoices();
   const employeeChoices = await getEmployeeChoices();
   const roleChoices = await getRoleChoices();
-  const managerChoices = employeeChoices.push({name: 'None', value: null});
+  const managerChoices = await getManagerChoices();
   
   const questions = initQuestions(roleChoices, employeeChoices, departmentChoices, managerChoices);
 
